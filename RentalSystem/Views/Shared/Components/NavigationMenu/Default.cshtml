@@ -1,0 +1,18 @@
+﻿@model IEnumerable<string>
+
+<div class="d-grid gap-2">
+    <a asp-controller="Home" asp-action="Index" asp-route-category=""
+       class="btn @(ViewBag.SelectedCategory == null ? "btn-primary" : "btn-outline-primary")">
+        Всі пропозиції
+    </a>
+
+    @foreach (string category in Model)
+    {
+        <a asp-controller="Home" asp-action="Index"
+           asp-route-category="@category"
+           asp-route-page="1"
+           class="btn @(category == ViewBag.SelectedCategory ? "btn-primary" : "btn-outline-primary")">
+            @category
+        </a>
+    }
+</div>

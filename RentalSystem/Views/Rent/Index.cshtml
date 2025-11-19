@@ -1,0 +1,51 @@
+﻿@model RentalSystem.Models.RentRequest
+
+@{
+    ViewData["Title"] = "Бронювання";
+    var transport = ViewBag.Transport as RentalSystem.Models.Transport;
+}
+
+<div class="container mt-4">
+    <h2>Оформлення оренди</h2>
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Message"]
+        </div>
+    }
+
+    @if (transport != null)
+    {
+        <div class="card mb-4 border-primary">
+            <div class="card-body bg-light">
+                <h4>Ви обрали: <strong>@transport.Model</strong></h4>
+                <p class="mb-0">Ціна: @transport.PricePerDay.ToString("C") / добу</p>
+            </div>
+        </div>
+    }
+
+    <form method="post" class="col-md-6">
+        <input type="hidden" asp-for="TransportID" />
+
+        <div class="mb-3">
+            <label class="form-label">Ваше ім'я:</label>
+            <input asp-for="ClientName" class="form-control" placeholder="Введіть ім'я..." required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Кількість днів:</label>
+            <input asp-for="Days" type="number" min="1" max="30" class="form-control" />
+        </div>
+
+        <div class="d-grid gap-2 d-md-block">
+            <button type="submit" asp-action="SaveDraft" class="btn btn-secondary">
+                <i class="bi bi-save"></i> Зберегти чернетку
+            </button>
+
+            <button type="submit" asp-action="Complete" class="btn btn-success">
+                Підтвердити замовлення
+            </button>
+        </div>
+    </form>
+</div>
