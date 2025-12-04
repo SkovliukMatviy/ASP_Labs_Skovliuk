@@ -24,6 +24,35 @@
                             <a class="nav-link active" asp-controller="Home" asp-action="Index">Головна</a>
                         </li>
                     </ul>
+
+                    <ul class="navbar-nav ms-auto">
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item d-flex align-items-center">
+                                <span class="nav-link text-white me-2">
+                                    <i class="bi bi-person-circle"></i> Привіт, @User.Identity.Name
+                                </span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-outline-light btn-sm" asp-controller="Account" asp-action="Logout">
+                                    <i class="bi bi-box-arrow-right"></i> Вийти
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item me-2">
+                                <a class="btn btn-outline-light btn-sm" asp-controller="Account" asp-action="Login">
+                                    <i class="bi bi-box-arrow-in-right"></i> Вхід
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-warning btn-sm text-dark fw-bold" asp-controller="Account" asp-action="Register">
+                                    <i class="bi bi-person-plus-fill"></i> Реєстрація
+                                </a>
+                            </li>
+                        }
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -48,7 +77,7 @@
     <footer class="footer mt-auto py-3 bg-light border-top">
         <div class="container text-center">
             <span class="text-muted">
-                &copy; 2025 <strong>RentalSystem</strong>. Лабораторна робота №3
+                &copy; 2025 <strong>RentalSystem</strong>. Лабораторна робота ASP Сковлюк Матвій ІПЗ-22-4
             </span>
         </div>
     </footer>

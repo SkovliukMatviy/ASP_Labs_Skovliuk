@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RentalSystem.Models;
 
@@ -17,6 +18,19 @@ builder.Services.AddDbContext<RentalDbContext>(opts => {
 
 builder.Services.AddScoped<IRentalRepository, EFRentalRepository>();
 
+builder.Services.AddDbContext<AppIdentityDbContext>(options =>
+    options.UseSqlServer(builder.Configuration["ConnectionStrings:IdentityConnection"]));
+
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(opts => {
+    opts.Password.RequiredLength = 8;  
+    opts.Password.RequireNonAlphanumeric = false;
+    opts.Password.RequireLowercase = true;
+    opts.Password.RequireUppercase = true; 
+    opts.Password.RequireDigit = true;     
+    opts.User.RequireUniqueEmail = true;   
+})
+    .AddEntityFrameworkStores<AppIdentityDbContext>();
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -39,7 +53,8 @@ app.UseStaticFiles();
 
 app.UseSession();
 
-
+app.UseAuthentication(); 
+app.UseAuthorization();  
 app.MapDefaultControllerRoute();
 
 SeedData.EnsurePopulated(app);

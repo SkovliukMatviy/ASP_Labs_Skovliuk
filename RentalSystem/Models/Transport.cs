@@ -23,6 +23,6 @@ public class Transport
     [Required(ErrorMessage = "Оберіть категорію")]
     public string Category { get; set; } = string.Empty;
 
-    // Зв'язок: Один транспорт може мати багато замовлень
+   
     public List<RentOrder> RentOrders { get; set; } = new();
 }
