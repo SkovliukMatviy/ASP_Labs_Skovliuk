@@ -1,0 +1,33 @@
+﻿@model IEnumerable<RentalSystem.Models.Transport>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-3">
+        <h2>Адмін-панель</h2>
+        <a asp-action="Create" class="btn btn-success">Додати авто</a>
+    </div>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr><th>ID</th><th>Модель</th><th>Ціна</th><th>Дії</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.TransportID</td>
+                    <td>@item.Model</td>
+                    <td>@item.PricePerDay</td>
+                    <td>
+                        <form asp-action="Delete" method="post">
+                            <a asp-action="Edit" asp-route-id="@item.TransportID" class="btn btn-warning btn-sm">Ред.</a>
+                            <a asp-action="Details" asp-route-id="@item.TransportID" class="btn btn-info btn-sm">Інфо</a>
+                            <input type="hidden" name="id" value="@item.TransportID" />
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Видалити?');">Видал.</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">На головну</a>
+</div>

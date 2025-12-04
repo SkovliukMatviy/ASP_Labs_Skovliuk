@@ -1,0 +1,36 @@
+﻿@model RentalSystem.Models.Transport
+
+<div class="container mt-4">
+    <h2>@(Model.TransportID == 0 ? "Створення" : "Редагування")</h2>
+
+    <form asp-action="@(Model.TransportID == 0 ? "Create" : "Edit")" method="post">
+        <input type="hidden" asp-for="TransportID" />
+
+        <div class="mb-3">
+            <label>Модель</label>
+            <input asp-for="Model" class="form-control" />
+            <span asp-validation-for="Model" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label>Категорія</label>
+            <input asp-for="Category" class="form-control" />
+            <span asp-validation-for="Category" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label>Опис</label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label>Ціна</label>
+            <input asp-for="PricePerDay" type="number" class="form-control" />
+            <span asp-validation-for="PricePerDay" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Зберегти</button>
+        <a asp-action="Index" class="btn btn-secondary">Скасувати</a>
+    </form>
+</div>
